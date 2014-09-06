@@ -20,6 +20,8 @@
 		"php": ">=5.4.0",
 		"webiny/std-lib": "dev-master",
 		"webiny/cache": "dev-master",
+		"webiny/config": "dev-master",
+		"webiny/http": "dev-master",
 		"webiny/service-manager": "dev-master"
 	},
 	"require-dev": {
@@ -27,12 +29,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Webiny\\Component\\OAuth2\\": ""
+			"Webiny\\Component\\Router\\": ""
 		}
 	},
 	"extras": {
 		"branch-alias": {
-			"dev-master": "~0.9"
+			"dev-master": "1.0.0-RC1"
 		}
 	}
 }
