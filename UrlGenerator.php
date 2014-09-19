@@ -62,9 +62,10 @@ class UrlGenerator
 
         if (strpos($path, '{') !== false) {
             throw new RouterException('Unable to generate a url for "%s" route. Some parameters are missing: "%s"', [
-                                                                                                                      $name,
-                                                                                                                      $path
-                                                                                                                  ]);
+                    $name,
+                    $path
+                ]
+            );
         }
 
         /**
