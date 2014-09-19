@@ -113,9 +113,10 @@ class RouteOption
         // make sure value is a string
         if (!$this->isString($pattern)) {
             throw new RouterException('The value of %s.%s option must be a string.', [
-                $this->_name,
-                $name
-            ]);
+                    $this->_name,
+                    $name
+                ]
+            );
         }
 
         // filter out some characters from the start and end of the pattern
@@ -124,9 +125,10 @@ class RouteOption
         // make sure pattern is not empty
         if ($pattern->length() < 1) {
             throw new RouterException('The route for %s.%s cannot be empty.', [
-                $this->_name,
-                $name
-            ]);
+                    $this->_name,
+                    $name
+                ]
+            );
         }
 
         return $pattern->val();

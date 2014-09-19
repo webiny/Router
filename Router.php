@@ -132,7 +132,8 @@ class Router
                 if ($this->isInstanceOf($cache, '\Webiny\Component\Cache\CacheStorage')) {
                     $this->_cache = $cache;
                 } else {
-                    throw new RouterException('$cache must either be a boolean or instance of \Webiny\Component\Cache\CacheStorage.');
+                    throw new RouterException('$cache must either be a boolean or instance of \Webiny\Component\Cache\CacheStorage.'
+                    );
                 }
             } else {
                 $this->_cache = $this->cache($cache);
@@ -205,10 +206,10 @@ class Router
     {
         if ($this->getCache()) {
             $this->getCache()->save(self::CACHE_KEY . md5($path), $value, null, [
-                                                                    '_wf',
-                                                                    '_component',
-                                                                    '_router'
-                                                                ]
+                    '_wf',
+                    '_component',
+                    '_router'
+                ]
             );
         }
     }
