@@ -50,7 +50,7 @@ class ConfigLoader
      */
     function getRouteCollection()
     {
-        foreach ($this->_config as $name => &$routeConfig) {
+        foreach ($this->_config as $name => $routeConfig) {
             $this->_routeCollection->add($name, $this->processRoute($routeConfig));
         }
 
@@ -73,22 +73,22 @@ class ConfigLoader
         $route = new Route($routeConfig->Path, $callback);
 
         // route options
-        if (($options = $routeConfig->get('Options', false)) != false) {
+        if (($options = $routeConfig->get('Options', false)) !== false) {
             $route->setOptions($options->toArray());
         }
 
         // host
-        if (($host = $routeConfig->get('Host', false)) != false) {
+        if (($host = $routeConfig->get('Host', false)) !== false) {
             $route->setHost($host);
         }
 
         // schemes
-        if (($schemes = $routeConfig->get('Schemes', false)) != false) {
+        if (($schemes = $routeConfig->get('Schemes', false)) !== false) {
             $route->setSchemes($schemes);
         }
 
         // methods
-        if (($methods = $routeConfig->get('Methods', false)) != false) {
+        if (($methods = $routeConfig->get('Methods', false)) !== false) {
             $route->setMethods($methods->toArray());
         }
 
