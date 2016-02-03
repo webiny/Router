@@ -21,42 +21,47 @@ class Route
     /**
      * @var string
      */
-    private $_path = '/';
+    private $path = '/';
 
     /**
      * @var string The raw path defined in config
      */
-    private $_realPath = '';
+    private $realPath = '';
 
     /**
      * @var string
      */
-    private $_callback;
+    private $callback;
 
     /**
      * @var array
      */
-    private $_options = [];
+    private $options = [];
 
     /**
      * @var string
      */
-    private $_host = '';
+    private $host = '';
 
     /**
      * @var array
      */
-    private $_schemes = [];
+    private $schemes = [];
 
     /**
      * @var array
      */
-    private $_methods = [];
+    private $methods = [];
+
+    /**
+     * @var array
+     */
+    private $tags = [];
 
     /**
      * @var null|CompiledRoute
      */
-    private $_compiledRoute = null;
+    private $compiledRoute = null;
 
 
     /**
@@ -90,11 +95,11 @@ class Route
      */
     public function setPath($path)
     {
-        $this->_path = '';
-        $this->_realPath = $path;
+        $this->path = '';
+        $this->realPath = $path;
 
         if(!empty($path)) {
-            $this->_path .= $this->str($path)->trim()->trimLeft('/')->trimRight('/')->val();
+            $this->path .= $this->str($path)->trim()->trimLeft('/')->trimRight('/')->val();
         }
 
         return $this;
@@ -107,7 +112,7 @@ class Route
      */
     public function getPath()
     {
-        return $this->_path;
+        return $this->path;
     }
 
     /**
@@ -117,7 +122,7 @@ class Route
      */
     public function getRealPath()
     {
-        return $this->_realPath;
+        return $this->realPath;
     }
 
     /**
@@ -130,7 +135,7 @@ class Route
      */
     public function setCallback($callback)
     {
-        $this->_callback = $callback;
+        $this->callback = $callback;
 
         return $this;
     }
@@ -142,7 +147,7 @@ class Route
      */
     public function getCallback()
     {
-        return $this->_callback;
+        return $this->callback;
     }
 
     /**
@@ -155,7 +160,7 @@ class Route
      */
     public function setOptions(array $options)
     {
-        $this->_options = [];
+        $this->options = [];
 
         foreach ($options as $k => $v) {
             $this->addOption($k, (array)$v);
@@ -174,7 +179,7 @@ class Route
      */
     public function addOption($name, array $attributes)
     {
-        $this->_options[$name] = new RouteOption($name, $attributes);
+        $this->options[$name] = new RouteOption($name, $attributes);
 
         return $this;
     }
@@ -188,7 +193,7 @@ class Route
      */
     public function hasOption($name)
     {
-        return array_key_exists($name, $this->_options);
+        return array_key_exists($name, $this->options);
     }
 
     /**
@@ -198,7 +203,7 @@ class Route
      */
     public function getOptions()
     {
-        return $this->_options;
+        return $this->options;
     }
 
     /**
@@ -211,7 +216,7 @@ class Route
      */
     public function setHost($host)
     {
-        $this->_host = $host;
+        $this->host = $host;
 
         return $this;
     }
@@ -224,7 +229,7 @@ class Route
      */
     public function getHost()
     {
-        return $this->_host;
+        return $this->host;
     }
 
     /**
@@ -237,7 +242,7 @@ class Route
      */
     public function setSchemes($schemes)
     {
-        $this->_schemes = array_map('strtolower', (array)$schemes);
+        $this->schemes = array_map('strtolower', (array)$schemes);
 
         return $this;
     }
@@ -249,7 +254,7 @@ class Route
      */
     public function getSchemes()
     {
-        return $this->_schemes;
+        return $this->schemes;
     }
 
     /**
@@ -262,7 +267,7 @@ class Route
      */
     public function setMethods($methods)
     {
-        $this->_methods = array_map('strtoupper', $methods);
+        $this->methods = array_map('strtoupper', $methods);
 
         return $this;
     }
@@ -274,7 +279,30 @@ class Route
      */
     public function getMethods()
     {
-        return $this->_methods;
+        return $this->methods;
+    }
+
+    /**
+     * Sets the route tags.
+     *
+     * @param array $tags
+     *
+     * @return $this
+     */
+    public function setTags(array $tags)
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * Get the route tags.
+     *
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /**
@@ -284,10 +312,10 @@ class Route
      */
     public function compile()
     {
-        if($this->isNull($this->_compiledRoute)) {
-            $this->_compiledRoute = RouteCompiler::compile($this);
+        if($this->isNull($this->compiledRoute)) {
+            $this->compiledRoute = RouteCompiler::compile($this);
         }
 
-        return $this->_compiledRoute;
+        return $this->compiledRoute;
     }
 }
